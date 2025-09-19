@@ -12,6 +12,8 @@ const Chat = ({ token }) => {
   const fileInputRef = useRef(null);
   const chatContainerRef = useRef(null);
 
+  const API_BASE_URL = process.env.REACT_APP_API_URL;
+
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   };
@@ -99,7 +101,7 @@ const Chat = ({ token }) => {
       });
 
       const response = await axios.post(
-        'http://127.0.0.1:5000/chat',
+        `${API_BASE_URL}/chat`,
         formData,
         {
           headers: {
