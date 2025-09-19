@@ -23,7 +23,7 @@ load_dotenv()
 
 # --- CONFIGURATIONS ---
 app = Flask(__name__)
-CORS(app, resources={r"/*": {"origins": ["http://localhost:3000", "http://localhost:5173", "https://responsive-chatbot-2.onrender.com"]}})
+CORS(app, resources={r"/*": {"origins": ["http://localhost:3000", "http://localhost:5173", "https://responsive-chatbot-2.onrender.com"]}}, supports_credentials=True)
 app.config["JWT_SECRET_KEY"] = os.getenv("JWT_SECRET_KEY")
 app.config["JWT_ACCESS_TOKEN_EXPIRES"] = timedelta(hours=1)  # Session management
 if not app.config["JWT_SECRET_KEY"]:
