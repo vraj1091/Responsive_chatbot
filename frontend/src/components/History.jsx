@@ -9,6 +9,9 @@ const History = ({ token }) => {
   const [searchTerm, setSearchTerm] = useState('');
   const [filterType, setFilterType] = useState('all');
 
+  // Use environment variable for API base URL
+  const API_BASE_URL = process.env.REACT_APP_API_URL;
+
   useEffect(() => {
     fetchHistory();
   }, []);
@@ -16,7 +19,7 @@ const History = ({ token }) => {
   const fetchHistory = async () => {
     setIsLoading(true);
     try {
-      const response = await axios.get('http://127.0.0.1:5000/history', {
+      const response = await axios.get(`${API_BASE_URL}/history`, {
         headers: {
           'Authorization': `Bearer ${token}`
         }
@@ -34,9 +37,8 @@ const History = ({ token }) => {
     if (!window.confirm('Are you sure you want to clear all chat history? This action cannot be undone.')) {
       return;
     }
-
     try {
-      await axios.delete('http://127.0.0.1:5000/clear-history', {
+      await axios.delete(`${API_BASE_URL}/clear-history`, {
         headers: {
           'Authorization': `Bearer ${token}`
         }
@@ -49,8 +51,9 @@ const History = ({ token }) => {
   };
 
   const filteredMessages = messages.filter(message => {
-    const matchesSearch = message.user_message?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         message.bot_response?.toLowerCase().includes(searchTerm.toLowerCase());
+    const matchesSearch =
+      message.user_message?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      message.bot_response?.toLowerCase().includes(searchTerm.toLowerCase());
 
     if (filterType === 'all') return matchesSearch;
     if (filterType === 'files') return matchesSearch && message.files_info?.length > 0;
@@ -106,7 +109,7 @@ const History = ({ token }) => {
         </div>
 
         <div className="header-actions">
-          <button 
+          <button
             onClick={clearHistory}
             className="clear-history-btn"
             disabled={messages.length === 0}
@@ -129,7 +132,7 @@ const History = ({ token }) => {
               className="search-input"
             />
             {searchTerm && (
-              <button 
+              <button
                 onClick={() => setSearchTerm('')}
                 className="clear-search"
               >
@@ -140,8 +143,8 @@ const History = ({ token }) => {
         </div>
 
         <div className="filter-container">
-          <select 
-            value={filterType} 
+          <select
+            value={filterType}
             onChange={(e) => setFilterType(e.target.value)}
             className="filter-select"
           >
@@ -165,7 +168,7 @@ const History = ({ token }) => {
             <div className="empty-icon">📭</div>
             <h3>No conversations found</h3>
             <p>
-              {searchTerm 
+              {searchTerm
                 ? 'Try adjusting your search terms or filters'
                 : 'Start chatting to see your conversation history here'
               }
