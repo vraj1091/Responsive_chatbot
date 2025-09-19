@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
 import './App.css';
 
 // Components
@@ -126,38 +125,24 @@ const App = () => {
             </div>
           </main>
 
-          {/* Footer */}
-         
-        {/*} <footer className="app-footer">
-            <div className="footer-content">
-              <p>AI Chatbot with 3D Interface • Built with ❤️ and AI</p>
-              <div className="tech-stack">
-                <span className="tech-badge">React</span>
-                <span className="tech-badge">Flask</span>
-                <span className="tech-badge">Gemini AI</span>
-                <span className="tech-badge">MySQL</span>
+          {/* Loading Overlay */}
+          {isLoading && (
+            <div className="loading-overlay">
+              <div className="loading-3d">
+                <div className="spinner-3d">
+                  <div className="cube-spinner">
+                    <div className="cube-face front"></div>
+                    <div className="cube-face back"></div>
+                    <div className="cube-face right"></div>
+                    <div className="cube-face left"></div>
+                    <div className="cube-face top"></div>
+                    <div className="cube-face bottom"></div>
+                  </div>
+                </div>
+                <p className="loading-text">Processing...</p>
               </div>
             </div>
-          </footer> */}
-        </div>
-      )}
-
-      {/* Loading Overlay */}
-      {isLoading && (
-        <div className="loading-overlay">
-          <div className="loading-3d">
-            <div className="spinner-3d">
-              <div className="cube-spinner">
-                <div className="cube-face front"></div>
-                <div className="cube-face back"></div>
-                <div className="cube-face right"></div>
-                <div className="cube-face left"></div>
-                <div className="cube-face top"></div>
-                <div className="cube-face bottom"></div>
-              </div>
-            </div>
-            <p className="loading-text">Processing...</p>
-          </div>
+          )}
         </div>
       )}
     </div>
