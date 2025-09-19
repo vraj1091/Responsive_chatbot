@@ -11,6 +11,8 @@ const Auth = ({ onLoginSuccess }) => {
   const [message, setMessage] = useState('');
   const [isLoading, setIsLoading] = useState(false);
 
+  const API_BASE_URL = process.env.REACT_APP_API_URL;
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
@@ -18,12 +20,12 @@ const Auth = ({ onLoginSuccess }) => {
     setIsLoading(true);
 
     const endpoint = isRegister ? '/register' : '/login';
-    const payload = isRegister 
+    const payload = isRegister
       ? { username, password, email }
       : { username, password };
 
     try {
-      const response = await axios.post(`http://127.0.0.1:5000${endpoint}`, payload);
+      const response = await axios.post(`${API_BASE_URL}${endpoint}`, payload);
 
       if (isRegister) {
         setMessage('Registration successful! Please log in.');
@@ -56,8 +58,8 @@ const Auth = ({ onLoginSuccess }) => {
           {isRegister ? 'Create Account' : 'Welcome Back'}
         </h2>
         <p className="auth-subtitle">
-          {isRegister 
-            ? 'Join our AI-powered chat experience' 
+          {isRegister
+            ? 'Join our AI-powered chat experience'
             : 'Sign in to continue your conversation'
           }
         </p>
@@ -111,8 +113,8 @@ const Auth = ({ onLoginSuccess }) => {
           </div>
         </div>
 
-        <button 
-          type="submit" 
+        <button
+          type="submit"
           disabled={isLoading}
           className={`auth-button ${isLoading ? 'loading' : ''}`}
         >
